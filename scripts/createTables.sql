@@ -1,13 +1,13 @@
 use BookManageOS
 go
-
+--�������ݱ�
 if exists(select * from sysobjects where name='Press')
 drop table Press
 go
 create table Press
 (
 Pname     varchar(50)  PRIMARY KEY,
-Paddress  varchar(255) null,
+Paddress  varchar(255) unique,
 Phone     varchar(50) null,
 Pcontact  varchar(255) 
 )
@@ -18,8 +18,8 @@ drop table Books
 go
 create table Books 
 (
-Bname   varchar(50)  PRIMARY KEY,
-Bno     varchar(255) not null,
+Bno   varchar(13)  PRIMARY KEY,
+Bname     varchar(50) not null,
 Bauthor varchar(50) null,
 Bprice  float   not null,
 Bnumber int     null,
@@ -33,7 +33,7 @@ drop table Department
 go
 create table Department
 (
-Dno    varchar(20) PRIMARY KEY,
+Dno    int PRIMARY KEY,
 Dname  varchar(100),
 Dphone varchar(100)
 )
@@ -44,11 +44,11 @@ drop table Employee
 go
 create table Employee
 (
-Eno    varchar(50) PRIMARY KEY ,
+Eno    varchar(12) PRIMARY KEY ,
 Ename  varchar(100) ,
 Esex   nchar(1) CHECK(Esex='��' OR Esex = 'Ů'),
 Ebirth date,
-Dno    varchar(20) FOREIGN KEY REFERENCES Department(Dno)
+Dno    int FOREIGN KEY REFERENCES Department(Dno)
 )
 go
 
@@ -58,16 +58,12 @@ drop table Borrow
 go
 create table Borrow
 (
-Bno  varchar(100) ,
-Eno  varchar(100) ,
+Bno  varchar(13),
+Eno  varchar(12),
 LendingDate date,
 ShouldpaybackDate date,
-RealpaybackDate date
+RealpaybackDate date,
 PRIMARY KEY(Bno,Eno)
 )
 go
-
- 
-
-
 
