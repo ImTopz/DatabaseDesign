@@ -16,8 +16,9 @@ CREATE VIEW checkBorrowStatus AS
 	SELECT Ename,Bname,LendingDate,ShouldpaybackDate,RealpaybackDate
 		FROM Employee  e join Borrow  b ON e.Eno = b.Eno  join Books on b.Bno=Books.Bno
 GO
+
 CREATE VIEW checkBorrowNumber AS
-	SELECT Ename,
+	SELECT Ename,count(Eno) FROM Employee e inner join Borrow b ON e.Eno = b.Eno group by a.Ename 
 GO
 
 
