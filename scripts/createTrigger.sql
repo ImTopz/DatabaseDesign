@@ -48,3 +48,20 @@ begin
 end
 go
 
+
+create trigger trig_6 
+on Borrow
+after insert
+as
+begin
+	declare @s date
+	select @s= LendingDate from inserted
+	declare @t date
+	select @t= ShouldpaybackDate from inserted
+	if @s>@t
+	begin
+	     select '归还日期必须在应还日期之前'
+	     rollback
+	end
+end
+go

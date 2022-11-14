@@ -14,13 +14,16 @@ GO
 CREATE VIEW checkDepart AS
 	SELECT  Ename,Dname,Dphone FROM Employee e inner join Department d ON e.Dno = d.Dno
 GO
+
 CREATE VIEW checkPress AS
 	SELECT Bname,p.Pname FROM Books b inner JOIN Press p ON b.Pname = p.Pname
 GO
+
 CREATE VIEW checkBorrowStatus AS 
 	SELECT Ename,Bname,LendingDate,ShouldpaybackDate,RealpaybackDate
 		FROM Employee  e join Borrow  b ON e.Eno = b.Eno  join Books on b.Bno=Books.Bno
 GO
+
 
 CREATE VIEW checkBorrowNumber AS
 	SELECT Ename,COUNT(*) AS number FROM Employee e inner join Borrow b ON e.Eno = b.Eno GROUP BY e.Ename
