@@ -10,12 +10,13 @@ IF OBJECT_ID (N'dbo.GetEachTimes', N'FN') IS NOT NULL
     DROP FUNCTION GetEachTimes;
 GO
 
-IF OBJECT_ID (N'dbo.GetEmployeeBorrow', N'FN') IS NOT NULL
-    DROP FUNCTION GetEmployeeBorrow;
+
+DROP FUNCTION GetEmployeeBorrow;
 GO
 
-IF OBJECT_ID (N'dbo.GetInventoryStock', N'FN') IS NOT NULL
-    DROP FUNCTION GetInventoryStock;
+
+IF OBJECT_ID (N'dbo.GetPressStock', N'FN') IS NOT NULL
+    DROP FUNCTION GetPressStock;
 GO
 
 
@@ -58,12 +59,27 @@ END
 GO
 
 
-CREATE FUNCTION GetEmployeeBorrow(@Ename varchar(100))
+CREATE FUNCTION GetEmployeeBorrow(@Eno varchar(12))
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT Employee.Eno,Employee.Ename,COUNT(*) as 借书数量 
+    FROM Employee JOIN Borrow ON Employee.Eno=Borrow.Eno 
+    where Employee.Eno=@Eno 
+    group by Employee.Eno,Employee.Ename
+
+)
+GO
+
+
+
+CREATE FUNCTION GetPressStock(@Pname varchar(50))
 RETURNS int
 AS
 begin
     declare @times int
-    select @times = COUNT(*) FROM Books JOIN Borrow on Books.Bno = Borrow.Bno WHERE Books.Bno = @Bno
+    select @times = COUNT(*) FROM Press JOIN Books on Press.Pname = Books.Pname WHERE Press.Pname=@Pname
     if(@times is null)
         set @times=0;
     return @times;
@@ -73,7 +89,7 @@ GO
 
 
 
-
+SELECT Pname,dbo.GetPressStock('中国华侨出版社') AS 出版社库存 FROM Press WHERE Pname ='中国华侨出版社'
 
 SELECT Bname,dbo.GetInventoryStock('9787511037909') AS 库存
 FROM Books WHERE Bno = '9787511037909'
@@ -84,3 +100,4 @@ WHERE Bno = '9787511037909'
 SELECT Bname,dbo.GetPrice('9787511037909') AS 价格
 FROM Books  WHERE Bno = '9787511037909'
 
+SELECT * FROM dbo.GetEmployeeBorrow('张德东')
