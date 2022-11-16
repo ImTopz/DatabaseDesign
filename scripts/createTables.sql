@@ -1,6 +1,6 @@
 use BookManageOS
 go
---�������ݱ�
+--?????????
 if exists(select * from sysobjects where name='Press')
 drop table Press
 go
@@ -46,7 +46,7 @@ create table Employee
 (
 Eno    varchar(12) PRIMARY KEY ,
 Ename  varchar(100) ,
-Esex   nchar(1) CHECK(Esex='��' OR Esex = 'Ů'),
+Esex   nchar(1) CHECK(Esex='??' OR Esex = '?'),
 Ebirth date,
 Dno    int FOREIGN KEY REFERENCES Department(Dno)
 )
