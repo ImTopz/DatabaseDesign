@@ -22,7 +22,7 @@ GO
 UPDATE  Books SET Books.Bprice = 20 FROM Books INNER JOIN Borrow ON Books.Bno=Borrow.Bno 
 GO
 
---更新人力资源部的部门名称
+--更新人力资源部的部门ID号  
 UPDATE Department SET Dname='劳力组织部' where Dname = '人力资源部'
 GO
 
@@ -51,7 +51,7 @@ GO
 DELETE FROM Books where Bprice not between 10 and 999
 
 --删除掉已经归还的借阅记录
-DELETE FROM Borrow where ShouldpaybackDate is not null
+DELETE FROM Borrow where RealpaybackDate is not NULL
 
 
 
@@ -60,7 +60,7 @@ DELETE Borrow FROM Borrow JOIN Employee ON Borrow.Eno = Employee.Eno JOIN Depart
 GO
 --删除掉借阅表里面没有归还的人
 
-DELETE FROM Borrow where ShouldpaybackDate is null
+DELETE FROM Borrow where RealpaybackDate is null
 GO
 
 --删除掉中国青年出版社出版的所有书
@@ -77,3 +77,5 @@ DELETE Borrow FROM Borrow JOIN Employee ON Borrow.Eno = Employee.Eno where Borro
 GO
 
 
+select * from Books
+select * from Borrow
