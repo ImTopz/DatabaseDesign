@@ -36,7 +36,7 @@ GO
 
 --将借出数量大于10的图书的价格增加1.1倍
 UPDATE Books SET Books.Bprice =  Books.Bprice *1.1 FROM Books Join (SELECT Bno FROM Borrow group by Bno having count(*) >= 10  ) AS a  ON Books.Bno = a.Bno
-
+GO
 --删除掉图书表中库存为0的图书记录
 DELETE FROM Books where Bnumber = 0
 GO
@@ -49,7 +49,7 @@ GO
 
 --删除掉单价低于10或者高于999的书籍
 DELETE FROM Books where Bprice not between 10 and 999
-
+GO
 --删除掉已经归还的借阅记录
 DELETE FROM Borrow where RealpaybackDate is not NULL
 
@@ -69,7 +69,7 @@ GO
 
 --删除掉归还时间早于10月1的记录
 DELETE FROM Borrow where RealpaybackDate < '2022-10-01'
-
+GO
 
 
 --删除掉田野借的书的借阅记录
@@ -78,4 +78,7 @@ GO
 
 
 select * from Books
+select * from Employee
+select * from Department
+select * from Press
 select * from Borrow
